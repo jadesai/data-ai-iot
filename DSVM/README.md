@@ -11,9 +11,9 @@ The following steps will get you up and running with the tutorial. For the sake 
  * [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Setup Files
-The files for setup are available on GitHub and can be cloned or downloaded from [here](https://github.com/DataSnowman/BigDataAI-Readiness)
+The files for setup are available on GitHub and can be cloned or downloaded from [here](https://github.com/Azure/data-ai-iot)
 
-`git clone https://github.com/DataSnowman/BigDataAI-Readiness.git`
+`git clone https://github.com/Azure/data-ai-iot.git`
 
 
 ## Part 1: Provisioning a Windows Data Science Virtual Machine
@@ -60,6 +60,9 @@ Note: You can also start/stop/restart your VM in the Azure portal UI.
 
 ### 1.4 Provisioning a Windows DSVM using the Azure AI Quickstart (15 minutes)
 To provision a Windows Data Science VM from Azure AI Quickstarts click [here](https://quickstart.azure.ai/Deployments/new/datasciencevm?source=CiqsGallery). Enter a Deployment name, choose a Subscription and Location and click Create. Next you will be asked to provide configuration parameters.  Enter a Username, Password, and Name, and select a VM Size and click Next.
+
+### 1.5 Provisioning a Windows DSVM using the Azure Marketplace (15 minutes)
+To provision a Windows Data Science VM from the Azure Marketplace click [here](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.windows-data-science-vm)
 
 ## Part 2: Preparing the Windows DSVM to run Azure ML Workbench
 
@@ -156,8 +159,11 @@ az vm restart -g aitutorial -n bdaireadyldsvm
 ```
 Note: You can also start/stop/restart your VM in the Azure portal UI.
 
-### 3.4 Provisioning a Linux DSVM using the Azure AI Quickstart (15 minutes)
+### 3.4 Provisioning a Linux DSVM using the Azure AI Quickstart (5 minutes)
 To provision a Windows Data Science VM from Azure AI Quickstarts click [here](https://quickstart.azure.ai/Deployments/new/linuxdatasciencevm?source=CiqsGallery). Enter a Deployment name, choose a Subscription and Location and click Create. Next you will be asked to provide configuration parameters.  Enter a Username, Password, and Name, and select a VM Size and click Next.
+
+### 3.5 Provisioning a Linux DSVM using the Azure Marketplace (5 minutes)
+To provision a Linux Data Science VM from the Azure Marketplace click [here](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.linux-data-science-vm-ubuntu)
 
 ## Part 4: Connecting to the Linux DSVM and Jupyter Hub
 
