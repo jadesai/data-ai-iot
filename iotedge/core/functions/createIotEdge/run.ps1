@@ -1,7 +1,7 @@
 # read function input parameters passed by CIQS
 $input = (Get-Content $req) -join "`n" | ConvertFrom-Json
 
-$arm = "https://management.azure.com/subscriptions"
+$arm = "https://management.azure.com"
 $iot = "https://main.iothub.ext.azure.com"
 $authtoken = $input.authtoken
 $iothub = $input.iothub
@@ -9,7 +9,7 @@ $resgrp = $input.resgrp
 $subs = $input.subs
 
 # Create keys
-$uri = "$arm/$subs/resourceGroups/$resgrp/providers/Microsoft.Devices/IotHubs/$iothub/listKeys?api-version=2017-07-01"
+$uri = "$arm/subscriptions/$subs/resourceGroups/$resgrp/providers/Microsoft.Devices/IotHubs/$iothub/listKeys?api-version=2017-07-01"
 $resp = Invoke-RestMethod "$uri" -Method POST -Body "" -ContentType "application/json" -Headers @{"Authorization"="Bearer $authtoken"}
 
 # Read key

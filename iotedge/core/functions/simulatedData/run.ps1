@@ -1,7 +1,7 @@
 # read function input parameters passed by CIQS
 $input = (Get-Content $req) -join "`n" | ConvertFrom-Json
 
-$arm = "https://management.azure.com/subscriptions"
+$arm = "https://management.azure.com"
 $iot = "https://main.iothub.ext.azure.com"
 $authtoken = $input.authtoken
 $iothub = $input.iothub

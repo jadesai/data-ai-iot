@@ -45,13 +45,24 @@
     </Function>
     <ArmDeployment source="template-ldeviceext-ciqs.json" title="Installing and starting the IoT Edge runtime" autoResolveParameters="true" />
     <ArmDeployment source="template-tsi.json" title="Creating Time Series Insights Environment" autoResolveParameters="true" />
-    <Function name="createIotEdge" title="Setting up temperate sensor simulation data" retriable="true" >
+    <Function name="simulatedData" title="Setting up temperate sensor simulation data" retriable="true" >
       <Parameters>
         <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
         <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
         <Parameter name="resgrp" type="string" defaultValue="{ResourceGroup.Name}" hidden="true" ></Parameter>
         <Parameter name="iothub" type="string" defaultValue="{Outputs.iothubName}" hidden="true" ></Parameter>
         <Parameter name="devicekey" type="string" defaultValue="{Outputs.devicekey}" hidden="true" ></Parameter>
+      </Parameters>
+    </Function>
+    <Function name="updateTimeSeries" title="Setting up time series to receive simulated data" retriable="true" >
+      <Parameters>
+        <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
+        <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
+        <Parameter name="resgrp" type="string" defaultValue="{ResourceGroup.Name}" hidden="true" ></Parameter>
+        <Parameter name="iothub" type="string" defaultValue="{Outputs.iothubName}" hidden="true" ></Parameter>
+        <Parameter name="devicekey" type="string" defaultValue="{Outputs.devicekey}" hidden="true" ></Parameter>
+        <Parameter name="tsiname" type="string" defaultValue="{Outputs.tsiname}" hidden="true" ></Parameter>
+        <Parameter name="location" type="string" defaultValue="{Location}" hidden="true" ></Parameter>
       </Parameters>
     </Function>
     <Manual title="Done">
