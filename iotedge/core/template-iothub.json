@@ -39,6 +39,7 @@
     }
   ],
   "outputs": {
-    "iotEdgeDevice": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Devices/IotHubs/', variables('hubName'), '/EdgeExplorer')]" }
+    "iotEdgeDevice": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Devices/IotHubs/', variables('hubName'), '/EdgeExplorer')]" },
+    "iothubName": { "type": "string", "value": "[variables('hubName')]" }
   }
 }
