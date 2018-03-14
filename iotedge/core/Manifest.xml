@@ -23,19 +23,13 @@
       </Parameters>
     </Manual>
     <ArmDeployment source="template-iothub.json" title="Creating an Azure IoT Hub" autoResolveParameters="true" />
-    <!--<Manual title="Enter IoT Edge Device Connection string to install and start the IoT Edge runtime">
-      <Instructions src="iotedgert.md" format="markdown" />
-      <Parameters>
-        <Parameter name="deviceconnectionstring" description="IoT Edge Device Connection string primarykey" type="string" />
-      </Parameters>
-    </Manual>-->
     <AzureFunctionApp>
         <AppSettings>
             <Add key="AzureWebJobsStorage" value="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" />
             <Add key="AzureWebJobsDashboard" value="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" />
         </AppSettings>            
     </AzureFunctionApp>
-    <Function name="createIotEdge" title="Creating an IOT edge device" retriable="true" >
+    <Function name="createIotEdge" title="Creating an IoT edge device" retriable="true" >
       <Parameters>
         <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
         <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
@@ -45,7 +39,7 @@
     </Function>
     <ArmDeployment source="template-ldeviceext-ciqs.json" title="Installing and starting the IoT Edge runtime" autoResolveParameters="true" />
     <ArmDeployment source="template-tsi.json" title="Creating Time Series Insights Environment" autoResolveParameters="true" />
-    <Function name="simulatedData" title="Setting up temperate sensor simulation data" retriable="true" >
+    <Function name="simulatedData" title="Installing a temperate sensor simulation module on the IoT Edge device" retriable="true" >
       <Parameters>
         <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
         <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
@@ -54,7 +48,7 @@
         <Parameter name="devicekey" type="string" defaultValue="{Outputs.devicekey}" hidden="true" ></Parameter>
       </Parameters>
     </Function>
-    <Function name="updateTimeSeries" title="Setting up time series to receive simulated data" retriable="true" >
+    <Function name="updateTimeSeries" title="Setting up Time Series to receive simulated data" retriable="true" >
       <Parameters>
         <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
         <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
