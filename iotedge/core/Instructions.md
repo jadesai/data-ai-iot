@@ -8,41 +8,13 @@ Use the following credentials to log in to the Device/Linux DSVM:
 * *Admin Username*: {Outputs.dadminUsername}
 * *SSH Command*: {Outputs.dsshConnection}
 
-Check Docker to see that the IoT Edge agent is running as a module:
-```cmd
-sudo docker ps
-```
-
 ![See edgeAgent in Docker](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-ps.png)
 
-### 2) Deploy a module
+### 2) View generated data
 
-Manage your Azure IoT Edge device from the cloud to deploy a module which will send telemetry data to IoT Hub.
+We created a new IoT Edge device and installed the IoT Edge runtime on it. Then, we pushed an IoT Edge module to run on the device without having to make changes to the device itself. In this case, the module that you pushed creates environmental data that you can use for the tutorials. 
 
-One of the key capabilities of Azure IoT Edge is being able to deploy modules to your IoT Edge devices from the cloud. An IoT Edge module is an executable package implemented as a container. In this section, you deploy a module that generates telemetry for your simulated device. 
-
-1. In the Azure portal, navigate to your [IoT hub]({Outputs.iotEdgeDevice})
-1. Go to **IoT Edge (preview)** and select your IoT Edge device.
-1. Select **Set Modules**.
-1. Select **Add IoT Edge Module**.
-1. In the **Name** field, enter `tempSensor`
-1. In the **Image URI** field, enter `microsoft/azureiotedge-simulated-temperature-sensor:1.0-preview`
-1. Leave the other settings unchanged, and select **Save**.
-
-   ![Save IoT Edge module after entering name and image URI](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/includes/media/iot-edge-deploy-module/name-image.png)
-
-1. Back in the **Add modules** step, select **Next**.
-1. In the **Specify routes** step, select **Next**.
-1. In the **Review template** step, select **Submit**.
-1. Return to the device details page and select **Refresh**. You should see the new tempSensor module running along the IoT Edge runtime. 
-
-   ![View tempSensor in list of deployed modules](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-windows/view-module.png)
-
-### 3) View generated data
-
-In this tutorial, you created a new IoT Edge device and installed the IoT Edge runtime on it. Then, you used the Azure portal to push an IoT Edge module to run on the device without having to make changes to the device itself. In this case, the module that you pushed creates environmental data that you can use for the tutorials. 
-
-Open the command prompt on the computer running your simulated device again. Confirm that the module deployed from the cloud is running on your IoT Edge device:
+Open the command prompt on the computer running your simulated device. Confirm that the module deployed from the cloud is running on your IoT Edge device:
 
 ```cmd
 sudo docker ps
@@ -58,22 +30,7 @@ sudo docker logs -f tempSensor
 
 ![View the data from your module](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-logs.png)
 
-### 4) Visualize the device telemetry in Time Series Insights
-
-You can also view the telemetry the device is sending by using the [Time Series Insights](https://insights.timeseries.azure.com/). 
-
-#### Time Series Insights
-
-[Add an Event Source]({Outputs.eventSourceUrl}).
-
- * Click on **+Add** > **Enter Event source name**
- * Choose Source as Iot Hub > Choose Import option of Use Iot Hub from available subscriptions
- * Choose the Subscription Id you are using 
- * Choose the Iot hub name which was deployed (It will start with iothub)
- * Choose the $Default Iot hub consummer group
- * Choose JSON as the Event serialization format
- * Click Create
-
+### 3) Visualize the device telemetry in Time Series Insights
 
 [Add your user in the Time Series Insights Data Access Pane]({Outputs.dataAccessPaneUrl}).
 
@@ -84,14 +41,16 @@ You can also view the telemetry the device is sending by using the [Time Series 
  
  [Open Time Series Insights](https://insights.timeseries.azure.com/).
 
- ### 5) Install Azure Machine Learning Workbench
+You can also view the telemetry the device is sending by using the [Time Series Insights](https://insights.timeseries.azure.com/). 
+
+ ### 4) Install Azure Machine Learning Workbench
 
  1. [Install Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/preview/quickstart-installation)
  1. If you would like to use the Data Science VM for installation instead of your PC or Mac then click [here](https://quickstart.azure.ai/Deployments/new/datasciencevm?source=CiqsGallery) to deploy the Windows Data Science VM
 
  **Note: you will want to deploy the Windows Data Science VM into the same location as the IoT Edge quickstart** 
 
-### 6) Set up Model Management for Azure ML
+### 5) Set up Model Management for Azure ML
 If you are already an Azure ML user then skip to the next section.
 
 Otherwise, follow these steps (more details in the [Model Management documentation](https://docs.microsoft.com/en-us/azure/machine-learning/preview/deployment-setup-configuration)):

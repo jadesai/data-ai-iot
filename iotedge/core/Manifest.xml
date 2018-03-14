@@ -23,14 +23,42 @@
       </Parameters>
     </Manual>
     <ArmDeployment source="template-iothub.json" title="Creating an Azure IoT Hub" autoResolveParameters="true" />
-    <Manual title="Enter IoT Edge Device Connection string to install and start the IoT Edge runtime">
-      <Instructions src="iotedgert.md" format="markdown" />
+    <AzureFunctionApp>
+        <AppSettings>
+            <Add key="AzureWebJobsStorage" value="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" />
+            <Add key="AzureWebJobsDashboard" value="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" />
+        </AppSettings>            
+    </AzureFunctionApp>
+    <Function name="createIotEdge" title="Creating an IoT edge device" retriable="true" >
       <Parameters>
-        <Parameter name="deviceconnectionstring" description="IoT Edge Device Connection string--primarykey" type="string" />
+        <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
+        <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
+        <Parameter name="resgrp" type="string" defaultValue="{ResourceGroup.Name}" hidden="true" ></Parameter>
+        <Parameter name="iothub" type="string" defaultValue="{Outputs.iothubName}" hidden="true" ></Parameter>
       </Parameters>
-    </Manual>
+    </Function>
     <ArmDeployment source="template-ldeviceext-ciqs.json" title="Installing and starting the IoT Edge runtime" autoResolveParameters="true" />
     <ArmDeployment source="template-tsi.json" title="Creating Time Series Insights Environment" autoResolveParameters="true" />
+    <Function name="simulatedData" title="Installing a temperate sensor simulation module on the IoT Edge device" retriable="true" >
+      <Parameters>
+        <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
+        <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
+        <Parameter name="resgrp" type="string" defaultValue="{ResourceGroup.Name}" hidden="true" ></Parameter>
+        <Parameter name="iothub" type="string" defaultValue="{Outputs.iothubName}" hidden="true" ></Parameter>
+        <Parameter name="devicekey" type="string" defaultValue="{Outputs.devicekey}" hidden="true" ></Parameter>
+      </Parameters>
+    </Function>
+    <Function name="updateTimeSeries" title="Setting up Time Series to receive simulated data" retriable="true" >
+      <Parameters>
+        <Parameter name="authtoken" type="string" defaultValue="{Authorization}" hidden="true" ></Parameter>
+        <Parameter name="subs" type="string" defaultValue="{SubscriptionId}" hidden="true" ></Parameter>
+        <Parameter name="resgrp" type="string" defaultValue="{ResourceGroup.Name}" hidden="true" ></Parameter>
+        <Parameter name="iothub" type="string" defaultValue="{Outputs.iothubName}" hidden="true" ></Parameter>
+        <Parameter name="devicekey" type="string" defaultValue="{Outputs.devicekey}" hidden="true" ></Parameter>
+        <Parameter name="tsiname" type="string" defaultValue="{Outputs.tsiname}" hidden="true" ></Parameter>
+        <Parameter name="location" type="string" defaultValue="{Location}" hidden="true" ></Parameter>
+      </Parameters>
+    </Function>
     <Manual title="Done">
       <Instructions src="Instructions.md" format="markdown" />
     </Manual>
