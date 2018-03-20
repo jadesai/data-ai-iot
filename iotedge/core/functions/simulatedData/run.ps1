@@ -10,81 +10,72 @@ $subs = $input.subs
 $devkey = $input.devicekey
 
 $postdata = @{
-	"hostName"= "$iothub.azure-devices.net"
-	"owner"= "iothubowner"
-	"key"= "$devkey"
-	"configurationContent"= @{
-		"moduleContent"= @{
-			"`$edgeAgent"= @{
-				"properties.desired"= @{
-					"schemaVersion"= "1.0"
-					"runtime"= @{
-						"type"= "docker"
-						"settings"= @{
-							"minDockerVersion"= "v1.25"
-							"loggingOptions"= ""
-						}
-					}
-					"systemModules"= @{
-						"edgeAgent"= @{
-							"type"= "docker"
-							"settings"= @{
-								"image"= "microsoft/azureiotedge-agent:1.0-preview"
-								"createOptions"= "{}"
-							}
-						}
-						"edgeHub"= @{
-							"type"= "docker"
-							"status"= "running"
-							"restartPolicy"= "always"
-							"settings"= @{
-								"image"= "microsoft/azureiotedge-hub:1.0-preview"
-								"createOptions"= "{}"
-							}
-						}
-					}
-					"modules"= @{
-						"tempSensor"= @{
-							"version"= "1.0"
-							"type"= "docker"
-							"status"= "running"
-							"restartPolicy"= "always"
-							"settings"= @{
-								"image"= "microsoft/azureiotedge-simulated-temperature-sensor:1.0-preview"
-								"createOptions"= "{}"
-							}
-						}
-					}
-				}
-			}
-			"`$edgeHub"= @{
-				"properties.desired"= @{
-					"schemaVersion"= "1.0"
-					"routes"= @{
-						"route"= "FROM /* INTO `$upstream"
-					}
-					"storeAndForwardConfiguration"= @{
-						"timeToLiveSecs"= 7200
-					}
-				}
-			}
-		}
-	}
-	"deviceId"= "$resgrp"
+    "hostName"= "$iothub.azure-devices.net"
+    "owner"= "iothubowner"
+    "key"= "$devkey"
+    "configurationContent"= @{
+        "moduleContent"= @{
+            "`$edgeAgent"= @{
+                "properties.desired"= @{
+                    "schemaVersion"= "1.0"
+                    "runtime"= @{
+                        "type"= "docker"
+                        "settings"= @{
+                            "minDockerVersion"= "v1.25"
+                            "loggingOptions"= ""
+                        }
+                    }
+                    "systemModules"= @{
+                        "edgeAgent"= @{
+                            "type"= "docker"
+                            "settings"= @{
+                                "image"= "microsoft/azureiotedge-agent:1.0-preview"
+                                "createOptions"= "{}"
+                            }
+                        }
+                        "edgeHub"= @{
+                            "type"= "docker"
+                            "status"= "running"
+                            "restartPolicy"= "always"
+                            "settings"= @{
+                                "image"= "microsoft/azureiotedge-hub:1.0-preview"
+                                "createOptions"= "{}"
+                            }
+                        }
+                    }
+                    "modules"= @{
+                        "tempSensor"= @{
+                            "version"= "1.0"
+                            "type"= "docker"
+                            "status"= "running"
+                            "restartPolicy"= "always"
+                            "settings"= @{
+                                "image"= "microsoft/azureiotedge-simulated-temperature-sensor:1.0-preview"
+                                "createOptions"= "{}"
+                            }
+                        }
+                    }
+                }
+            }
+            "`$edgeHub"= @{
+                "properties.desired"= @{
+                    "schemaVersion"= "1.0"
+                    "routes"= @{
+                        "route"= "FROM /* INTO `$upstream"
+                    }
+                    "storeAndForwardConfiguration"= @{
+                        "timeToLiveSecs"= 7200
+                    }
+                }
+            }
+        }
+    }
+    "deviceId"= "$resgrp"
 }
 
 $uri = "$iot/api/Devices/ApplyConfigurationContent/";
 $body = $postdata | Convertto-Json -Depth 10
 
-$uri | Out-File "D:\\home\\ciqs\\log.txt" -Append
-$body | Out-File "D:\\home\\ciqs\\log.txt" -Append
-$authtoken | Out-File "D:\\home\\ciqs\\log.txt" -Append
-
-try {
 $resp = Invoke-RestMethod "$uri" -Method POST -Body $body -ContentType "application/json" -Headers @{"Authorization"="Bearer $authtoken"}
-} catch {
-    $_.Exception.ErrorDetails | Out-File "D:\\home\\ciqs\\log.txt" -Append
-    $_.Exception.Response | Out-File "D:\\home\\ciqs\\log.txt" -Append
-    throw
-}
+
 
